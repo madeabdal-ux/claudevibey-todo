@@ -1,2 +1,97 @@
-<h1>Welcome To My Calendar</h1>
-<p>Daily Planner For Abdal</p>
+{% extends 'base.html' %}
+
+{% block title %}TaskFlow - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .calendar-day {
+        height: 60px;
+        vertical-align: middle;
+        position: relative;
+    }
+    .calendar-day a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        border-radius: 0;
+    }
+    .calendar-day a:hover {
+        background-color: #e9ecef;
+    }
+    .calendar-table td {
+        padding: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <h1 class="display-4 mb-3">Welcome To TaskFlow</h1>
+            <p class="lead">Your Personal Task & Calendar Management System</p>
+
+            {% if user.is_authenticated %}
+                <div class="alert alert-light mt-4">
+                    <p class="mb-0">Hello, <strong>{{ user.username }}</strong>! You are logged in.</p>
+                </div>
+
+                <!-- Calendar Section -->
+                <div class="card shadow mt-4">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <a href="?year={{ prev_year }}&month={{ prev_month }}" class="btn btn-outline-light btn-sm">&lt;</a>
+                        <h4 class="mb-0">{{ month_name }} {{ current_year }}</h4>
+                        <a href="?year={{ next_year }}&month={{ next_month }}" class="btn btn-outline-light btn-sm">&gt;</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-bordered mb-0 calendar-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-center py-2">Sun</th>
+                                    <th class="text-center py-2">Mon</th>
+                                    <th class="text-center py-2">Tue</th>
+                                    <th class="text-center py-2">Wed</th>
+                                    <th class="text-center py-2">Thu</th>
+                                    <th class="text-center py-2">Fri</th>
+                                    <th class="text-center py-2">Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for week in calendar_data %}
+                                    <tr>
+                                        {% for day in week %}
+                                            <td class="text-center calendar-day {% if day == today.day and current_month == today.month and current_year == today.year %}bg-warning{% endif %}">
+                                                {% if day != 0 %}
+                                                    <a href="{% url 'daily_tasks' current_year current_month day %}"
+                                                       class="btn btn-link text-decoration-none p-2 w-100 {% if day == today.day and current_month == today.month and current_year == today.year %}fw-bold{% endif %}">
+                                                        {{ day }}
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                <div class="mt-4">
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">Login</a>
+                    <a href="{% url 'signup' %}" class="btn btn-success btn-lg">Sign Up</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
