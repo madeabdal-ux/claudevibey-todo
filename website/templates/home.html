@@ -2,29 +2,6 @@
 
 {% block title %}TaskFlow - Home{% endblock %}
 
-{% block extra_css %}
-<style>
-    .calendar-day {
-        height: 60px;
-        vertical-align: middle;
-        position: relative;
-    }
-    .calendar-day a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        border-radius: 0;
-    }
-    .calendar-day a:hover {
-        background-color: #e9ecef;
-    }
-    .calendar-table td {
-        padding: 0;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -47,11 +24,21 @@
                 </div>
 
                 <!-- Calendar Section -->
-                <div class="card shadow mt-4">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <a href="?year={{ prev_year }}&month={{ prev_month }}" class="btn btn-outline-light btn-sm">&lt;</a>
-                        <h4 class="mb-0">{{ month_name }} {{ current_year }}</h4>
-                        <a href="?year={{ next_year }}&month={{ next_month }}" class="btn btn-outline-light btn-sm">&gt;</a>
+                <div class="card shadow mt-4 fade-in">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <a href="?year={{ prev_year }}&month={{ prev_month }}"
+                               class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center"
+                               aria-label="Previous month">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                            <h4 class="mb-0 text-center flex-grow-1 mx-2">{{ month_name }} {{ current_year }}</h4>
+                            <a href="?year={{ next_year }}&month={{ next_month }}"
+                               class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center"
+                               aria-label="Next month">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body p-0">
                         <table class="table table-bordered mb-0 calendar-table">

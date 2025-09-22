@@ -10,4 +10,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('tasks/<int:year>/<int:month>/<int:day>/', views.daily_tasks, name='daily_tasks'),
     path('update-task/', views.update_task, name='update_task'),
+    path('profile/', views.user_profile, name='user_profile'),
+    path('change-password/', views.change_password, name='change_password'),
 ]

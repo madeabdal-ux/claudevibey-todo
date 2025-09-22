@@ -1,0 +1,560 @@
+/* TaskFlow Custom Styles */
+
+/* ===== Calendar Styles ===== */
+.calendar-day {
+    height: 60px;
+    vertical-align: middle;
+    position: relative;
+}
+
+.calendar-day a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 0;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    /* Touch-friendly minimum size */
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.calendar-day a:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+}
+
+/* Touch device specific hover replacement */
+@media (hover: none) {
+    .calendar-day a:hover {
+        transform: none;
+    }
+
+    .calendar-day a:active {
+        background-color: #dee2e6;
+        transform: scale(0.95);
+    }
+
+    /* Make navigation buttons more touch-friendly */
+    .btn-sm {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 8px 12px;
+    }
+}
+
+.calendar-table td {
+    padding: 0;
+    border: 1px solid #dee2e6;
+}
+
+.calendar-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Ensure today's date stands out on mobile */
+.calendar-day.bg-warning a {
+    font-weight: bold;
+    color: #212529 !important;
+}
+
+/* ===== Daily Tasks Styles ===== */
+.time-slot-row {
+    border-bottom: 1px solid #e9ecef;
+    padding: 10px 0;
+}
+
+.time-slot-row:hover {
+    background-color: #f8f9fa;
+}
+
+.time-label {
+    font-weight: bold;
+    color: #495057;
+    width: 80px;
+    font-size: 0.9em;
+}
+
+.task-input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+.task-input:focus {
+    background: white;
+    border: 1px solid #ced4da;
+    outline: none;
+    border-radius: 4px;
+}
+
+.task-completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.priority-badge {
+    font-size: 0.7em;
+    margin-left: 5px;
+}
+
+.hourly-schedule {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* ===== Profile Page Styles ===== */
+.profile-stats {
+    text-align: center;
+}
+
+.profile-stats h6 {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.profile-stats h5 {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.quick-actions .btn {
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.quick-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* ===== Form Enhancements ===== */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ===== Card Enhancements ===== */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* ===== Alert Enhancements ===== */
+.alert {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* ===== Navigation Enhancements ===== */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+}
+
+.dropdown-menu {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.dropdown-item {
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* ===== Footer Styles ===== */
+.footer {
+    border-top: 1px solid #495057;
+}
+
+/* ===== Utility Classes ===== */
+.text-shadow {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+    .calendar-day {
+        height: 40px;
+    }
+
+    .calendar-day a {
+        font-size: 0.9em;
+        padding: 2px;
+    }
+
+    .time-label {
+        width: 60px;
+        font-size: 0.8em;
+    }
+
+    .task-input {
+        font-size: 0.8em;
+    }
+
+    .hourly-schedule {
+        max-height: 60vh;
+    }
+
+    /* Make calendar header more compact on tablets */
+    .calendar-table th {
+        font-size: 0.85em;
+        padding: 8px 4px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendar-day {
+        height: 32px;
+    }
+
+    .calendar-day a {
+        font-size: 0.8em;
+        padding: 1px;
+    }
+
+    .calendar-table th {
+        font-size: 0.75em;
+        padding: 6px 2px !important;
+    }
+
+    .time-label {
+        width: 50px;
+        font-size: 0.7em;
+    }
+
+    .quick-actions .btn {
+        font-size: 0.9em;
+    }
+
+    /* Smaller container margins on mobile */
+    .container.mt-5 {
+        margin-top: 2rem !important;
+    }
+
+    /* More compact calendar header */
+    .card-header h4 {
+        font-size: 1.1rem;
+    }
+
+    .btn-sm {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Extra small screens - 480px and below */
+@media (max-width: 480px) {
+    .calendar-day {
+        height: 28px;
+    }
+
+    .calendar-day a {
+        font-size: 0.7em;
+        padding: 0;
+        min-height: 28px;
+    }
+
+    .calendar-table th {
+        font-size: 0.7em;
+        padding: 4px 1px !important;
+    }
+
+    /* Use abbreviated day names */
+    .calendar-table th:nth-child(1):after { content: "S"; }
+    .calendar-table th:nth-child(2):after { content: "M"; }
+    .calendar-table th:nth-child(3):after { content: "T"; }
+    .calendar-table th:nth-child(4):after { content: "W"; }
+    .calendar-table th:nth-child(5):after { content: "T"; }
+    .calendar-table th:nth-child(6):after { content: "F"; }
+    .calendar-table th:nth-child(7):after { content: "S"; }
+
+    .calendar-table th {
+        text-indent: -9999px;
+        position: relative;
+    }
+
+    .calendar-table th:after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-indent: 0;
+    }
+
+    /* More compact month navigation */
+    .card-header h4 {
+        font-size: 1rem;
+    }
+
+    .card-header .btn-sm {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+
+    /* Reduce container padding */
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Very small screens - 360px and below */
+@media (max-width: 360px) {
+    .calendar-day {
+        height: 26px;
+    }
+
+    .calendar-day a {
+        font-size: 0.65em;
+        min-height: 26px;
+    }
+
+    .calendar-table {
+        font-size: 0.9em;
+    }
+
+    /* Stack calendar navigation vertically if needed */
+    .card-header.d-flex {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .card-header .btn-sm {
+        min-width: 32px;
+    }
+
+    /* Two-row navigation for very small screens */
+    .calendar-nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+
+    /* Reduce welcome message size */
+    .display-4 {
+        font-size: 1.8rem !important;
+    }
+
+    .lead {
+        font-size: 1rem !important;
+    }
+
+    /* Make alert more compact */
+    .alert-light {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Landscape orientation adjustments for small screens */
+@media (max-width: 768px) and (orientation: landscape) {
+    .calendar-day {
+        height: 35px;
+    }
+
+    .container.mt-5 {
+        margin-top: 1rem !important;
+    }
+
+    .display-4 {
+        font-size: 2rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .lead {
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* iPhone SE and similar very small screens */
+@media (max-width: 320px) {
+    .calendar-day {
+        height: 24px;
+    }
+
+    .calendar-day a {
+        font-size: 0.6em;
+        min-height: 24px;
+        min-width: 24px;
+    }
+
+    .card-header h4 {
+        font-size: 0.9rem;
+    }
+
+    .calendar-table th {
+        font-size: 0.65em;
+    }
+
+    /* Stack the month navigation on very small screens */
+    .card-header .d-flex {
+        flex-direction: row !important;
+        gap: 4px;
+    }
+
+    .card-header .flex-grow-1 {
+        order: 2;
+        flex-basis: 100%;
+        margin: 4px 0;
+    }
+
+    .card-header .btn-sm:first-child {
+        order: 1;
+    }
+
+    .card-header .btn-sm:last-child {
+        order: 3;
+    }
+}
+
+/* Add some additional touch improvements */
+@media (pointer: coarse) {
+    /* Larger touch targets for touch devices */
+    .calendar-day a {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .btn-sm {
+        min-width: 48px;
+        min-height: 48px;
+        padding: 10px 12px;
+    }
+}
+
+/* ===== Animation Classes ===== */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===== Task Priority Colors ===== */
+.priority-high {
+    color: #dc3545;
+    border-left: 4px solid #dc3545;
+}
+
+.priority-medium {
+    color: #ffc107;
+    border-left: 4px solid #ffc107;
+}
+
+.priority-low {
+    color: #6c757d;
+    border-left: 4px solid #6c757d;
+}
+
+/* ===== Loading States ===== */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner-grow-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* ===== Dark Mode Support (Future) ===== */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles can be added here later */
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .navbar,
+    .footer,
+    .btn,
+    .alert {
+        display: none !important;
+    }
+
+    .card {
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+    }
+}

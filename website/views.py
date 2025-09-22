@@ -215,3 +215,71 @@ def update_task(request):
 			return JsonResponse({'success': False, 'error': str(e)})
 
 	return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+@login_required
+def user_profile(request):
+	if request.method == 'POST':
+		# Get form data
+		first_name = request.POST.get('first_name', '').strip()
+		last_name = request.POST.get('last_name', '').strip()
+		email = request.POST.get('email', '').strip()
+		username = request.POST.get('username', '').strip()
+
+		# Validation
+		if not username:
+			messages.error(request, 'Username is required.')
+		elif username != request.user.username and User.objects.filter(username=username).exists():
+			messages.error(request, 'Username already exists.')
+		elif not email:
+			messages.error(request, 'Email is required.')
+		elif email != request.user.email and User.objects.filter(email=email).exists():
+			messages.error(request, 'Email already exists.')
+		else:
+			# Update user information
+			request.user.first_name = first_name
+			request.user.last_name = last_name
+			request.user.email = email
+			request.user.username = username
+			request.user.save()
+
+			messages.success(request, 'Profile updated successfully!')
+			return redirect('user_profile')
+
+	# Get task statistics
+	total_tasks = request.user.task_set.count()
+	completed_tasks = request.user.task_set.filter(completed=True).count()
+
+	context = {
+		'user': request.user,
+		'total_tasks': total_tasks,
+		'completed_tasks': completed_tasks,
+	}
+	return render(request, 'user_profile.html', context)
+
+@login_required
+def change_password(request):
+	if request.method == 'POST':
+		current_password = request.POST.get('current_password')
+		new_password = request.POST.get('new_password')
+		confirm_password = request.POST.get('confirm_password')
+
+		# Validate current password
+		if not request.user.check_password(current_password):
+			messages.error(request, 'Current password is incorrect.')
+		elif len(new_password) < 8:
+			messages.error(request, 'New password must be at least 8 characters long.')
+		elif new_password != confirm_password:
+			messages.error(request, 'New passwords do not match.')
+		else:
+			# Update password
+			request.user.set_password(new_password)
+			request.user.save()
+
+			# Update session to prevent logout
+			from django.contrib.auth import update_session_auth_hash
+			update_session_auth_hash(request, request.user)
+
+			messages.success(request, 'Password changed successfully!')
+			return redirect('user_profile')
+
+	return redirect('user_profile')

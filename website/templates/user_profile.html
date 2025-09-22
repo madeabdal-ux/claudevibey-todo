@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - TaskFlow{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">User Profile</h2>
+                <a href="{% url 'home' %}" class="btn btn-outline-primary">Back to Calendar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Profile Information -->
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name"
+                                           value="{{ user.first_name }}" placeholder="Enter your first name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name"
+                                           value="{{ user.last_name }}" placeholder="Enter your last name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   value="{{ user.username }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   value="{{ user.email }}" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Statistics & Change Password -->
+        <div class="col-lg-4">
+            <!-- Account Stats -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Account Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row profile-stats">
+                        <div class="col-12 mb-3">
+                            <h6 class="text-muted">Member Since</h6>
+                            <h5>{{ user.date_joined|date:"F d, Y" }}</h5>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="text-muted">Total Tasks</h6>
+                            <h5 class="text-primary">{{ total_tasks }}</h5>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="text-muted">Completed</h6>
+                            <h5 class="text-success">{{ completed_tasks }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Change Password</h5>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-outline-warning w-100" type="button" data-bs-toggle="collapse" data-bs-target="#changePasswordForm">
+                        Change Password
+                    </button>
+
+                    <div class="collapse mt-3" id="changePasswordForm">
+                        <form method="post" action="{% url 'change_password' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="current_password" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="current_password" name="current_password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new_password" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password" required>
+                                <div class="form-text">Must be at least 8 characters long.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirm_password" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Actions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body quick-actions">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="{% url 'home' %}" class="btn btn-outline-primary w-100 hover-shadow">
+                                📅 View Calendar
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{% url 'dashboard' %}" class="btn btn-outline-success w-100 hover-shadow">
+                                📊 Dashboard
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-outline-info w-100 hover-shadow" onclick="exportTasks()">
+                                📤 Export Tasks
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{% url 'logout' %}" class="btn btn-outline-danger w-100 hover-shadow">
+                                🚪 Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
